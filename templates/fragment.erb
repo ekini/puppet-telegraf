@@ -1,0 +1,7 @@
+[<%= @plugin_name %>]
+<% if scope.lookupvar('conf') != :undef -%>
+    <%- @conf.keys.sort.each do |q| -%>
+    <%- v=@conf[q] -%>
+    <%= q %> = <%= scope.function_dump_var([v]) %>
+    <%- end -%>
+<% end %>
