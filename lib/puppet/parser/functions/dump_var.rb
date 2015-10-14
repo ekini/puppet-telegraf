@@ -1,7 +1,7 @@
 def dumpvar(var)
   case var
     when String
-        "\"#{var}\""
+        "'#{var}'"
     when Array
         "[#{var.map { |x| dumpvar(x) }.join(", ")}]"
     else

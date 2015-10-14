@@ -33,7 +33,7 @@ class telegraf(
       ensure  => running,
       enable  => true,
       name    => $service_name,
-      require => Package[$package_name],
+      require => [Package[$package_name], Concat[$telegraf::params::conf_path], ],
     }
   }
 
