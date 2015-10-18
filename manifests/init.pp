@@ -6,6 +6,7 @@ class telegraf(
   $service_name = $telegraf::params::service,
   $default_plugins = ['mem', 'cpu', 'disk', 'swap', 'system', 'io', 'net'],
   $tags = undef,
+  $interval = '10s',
 ) inherits telegraf::params {
 
   package { $package_name:
@@ -45,7 +46,7 @@ class telegraf(
   telegraf::plugin { 'agent':
     order => '01',
     conf  => {
-      'interval'  => '10s',
+      'interval'  => $interval,
       'utc'       => true,
       'precision' => 'n',
       'debug'     => false,
