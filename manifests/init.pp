@@ -13,14 +13,15 @@ class telegraf(
     ensure   => $version,
     name     => $package_name,
     provider => $telegraf::params::provider
-  } ->
+  } ~>
   concat { $telegraf::params::conf_path:
-    ensure => present,
-    owner  => 'telegraf',
-    group  => 'telegraf',
-    mode   => '0644',
-    before => Service[$service_name],
-    notify => Service[$service_name],
+    ensure  => present,
+    owner   => 'telegraf',
+    group   => 'telegraf',
+    mode    => '0644',
+    before  => Service[$service_name],
+    require => Package[$package_name],
+    notify  => Service[$service_name],
   }
 
   concat::fragment { 'header':
