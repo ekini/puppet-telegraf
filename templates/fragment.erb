@@ -1,7 +1,15 @@
 [<%= @real_name %>]
 <% if scope.lookupvar('conf') != :undef -%>
-    <%- @conf.keys.sort_by { |k| k.tr("[]", "") }.each do |q| -%>
+    <%- @conf.keys.select { |k| not @conf[k].is_a?(Hash) }.sort_by { |k| k.tr("[]", "") }.each do |q| -%>
     <%- v=@conf[q] -%>
     <%= q %> = <%= scope.function_dump_var([v]) %>
     <%- end -%>
+    <%# print hashes %>
+    <%- @conf.keys.select { |k| @conf[k].is_a?(Hash) }.sort_by { |k| k.tr("[]", "") }.each do |q| -%>
+    <%- v=@conf[q] -%>
+    <%= q %>
+    <%- v.keys.sort_by { |k| k.tr("[]", "") }.each do |inner_v| -%>
+    <%= inner_v %> = <%= scope.function_dump_var([v[inner_v]]) %>
+    <%- end -%>
+<% end %>
 <% end %>
