@@ -39,7 +39,7 @@ class telegraf(
     }
   }
 
-  telegraf::plugin { 'tags':
+  telegraf::plugin { 'global_tags':
     order => '04',
     conf  => $tags,
   }
