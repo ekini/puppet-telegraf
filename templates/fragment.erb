@@ -1,5 +1,5 @@
 [<%= @real_name %>]
-<% if scope.lookupvar('conf') != :undef -%>
+<% if scope.lookupvar('conf') -%>
     <%- @conf.keys.select { |k| not @conf[k].is_a?(Hash) }.sort_by { |k| k.tr("[]", "") }.each do |q| -%>
     <%- v=@conf[q] -%>
     <%= q %> = <%= scope.function_dump_var([v]) %>
