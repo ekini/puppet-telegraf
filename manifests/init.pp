@@ -24,7 +24,7 @@ class telegraf(
     notify  => Service[$service_name],
   }
 
-  concat::fragment { 'header':
+  concat::fragment { 'telegraf_header':
     order   => '00',
     content => "## Managed by Puppet ###\n",
     target  => $telegraf::params::conf_path,
