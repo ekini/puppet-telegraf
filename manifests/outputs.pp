@@ -1,4 +1,4 @@
-class telegraf::outputs::amqp (
+define telegraf::outputs::amqp (
   $url              = undef,
   $exchange         = '',
   $routing_tag      = '',
@@ -8,11 +8,14 @@ class telegraf::outputs::amqp (
   $precision        = 'n',
   $retention_policy = 'default',
   $database         = 'telegraf',
+  $namepass         = [],
+  $namedrop         = [],
 ) {
 
-  telegraf::plugin { '[outputs.amqp]':
-    order => '03',
-    conf  => {
+  telegraf::plugin { "[outputs.amqp.${title}]":
+    plugin_name => '[outputs.amqp]',
+    order       => '03',
+    conf        => {
       'url'              => $url,
       'exchange'         => $exchange,
       'routing_tag'      => $routing_tag,
@@ -22,6 +25,8 @@ class telegraf::outputs::amqp (
       'precision'        => $precision,
       'retention_policy' => $retention_policy,
       'database'         => $database,
+      'namepass'         => $namepass,
+      'namedrop'         => $namedrop,
     }
   }
 }
