@@ -7,12 +7,22 @@ class telegraf(
   $default_plugins = ['mem', 'cpu', 'disk', 'swap', 'system', 'io', 'net'],
   $tags = undef,
   $interval = '10s',
+  $pkg_repo = undef
 ) inherits telegraf::params {
+
+
+  if $pkg_repo {
+    $pkg_options = ["--enablerepo", $pkg_repo]
+  } else {
+    $pkg_options = [""]
+  }
 
   package { $package_name:
     ensure   => $version,
     name     => $package_name,
-    provider => $telegraf::params::provider
+    provider => $telegraf::params::provider,
+    install_options => $pkg_options,
+
   } ~>
   concat { $telegraf::params::conf_path:
     ensure  => present,
