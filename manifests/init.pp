@@ -3,7 +3,7 @@ class telegraf(
                        $version = 'installed',
                        $telegraf_hostname = $::hostname,
   String               $package_name = 'telegraf',
-  Optional[Hash]       $package_options = undef,
+  Hash                 $package_options = {},
   String               $service_name = 'telegraf',
   Stdlib::Absolutepath $conf_path = $telegraf::params::conf_path,
   Array[String]        $plugins = ['mem', 'cpu', 'disk', 'swap', 'system', 'io', 'net'],
